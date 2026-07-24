@@ -1,0 +1,577 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma, sans-serif;
+}
+
+body{
+    direction: rtl;
+    color: #222;
+
+    background:
+        radial-gradient(
+            circle at 12% 18%,
+            rgba(196, 174, 145, 0.13),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 88% 72%,
+            rgba(224, 211, 193, 0.18),
+            transparent 30%
+        ),
+        #f7f5f1;
+
+    min-height: 100vh;
+}
+
+    .products {
+    background: transparent;
+}
+
+.navbar{
+    width:100%;
+    height:80px;
+    background: rgba(255,255,255,0.94);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid #eee9e2;
+box-shadow: 0 4px 18px rgba(0,0,0,0.035);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 60px 80px;
+    box-sizing:border-box;
+    position:fixed;
+    top:0;
+    left:0;
+    /* تثبيت شريط القائمة أعلى الصفحة */
+
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 9999;
+background: linear-gradient(90deg, #f4f1de, #f0f0e7, #f4f1de);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    color:#111;
+}
+
+nav{
+    display:flex;
+    gap:35px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-size:18px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#b8860b;
+}
+
+.hero{
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 120px 20px 70px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.68),
+            rgba(255,255,255,0.68)
+        ),
+        url("images/hero-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    border-bottom: 1px solid rgba(170,145,115,.15);
+}
+
+.hero h1{
+    font-size:52px;
+    margin-bottom:20px;
+    /* عنوان الواجهة الرئيسية */
+    font-family: "Alexandria", sans-serif;
+}
+
+.hero p{
+    font-size:20px;
+    max-width:700px;
+    line-height:1.8;
+    color:#666;
+    margin-bottom:35px;
+    font-family: "Tajawal", sans-serif;
+}
+
+.btn{
+    text-decoration:none;
+    background:#2f863b;
+    color:#fff;
+    padding:16px 38px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#37dc53;
+}
+.products{
+    padding:80px 30px;
+    text-align:center;
+    background:#ffffff;
+}
+
+.products h2{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.section-text{
+    color:#777;
+    font-size:18px;
+    margin-bottom:45px;
+}
+
+@media(max-width:768px){
+    .navbar{
+        padding:0 20px;
+    }
+
+    nav{
+        gap:12px;
+    }
+
+    nav a{
+        font-size:14px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+}
+/* البطاقة الحديثة */
+.product-card{
+    background:#ffffff;
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid #f1f1f1;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+    transition:.35s ease;
+
+    padding:0;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(0,0,0,.10);
+}
+
+
+/* حركة البطاقة */
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+
+/* مكان صورة العطر */
+.product-image{
+    width:100%;
+    height:240px;
+
+    background:#faf8f6;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.product-card:hover .product-image img{
+    transform:scale(1.05);
+}
+
+
+/* الصورة الحقيقية لاحقاً */
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.5s ease;
+}
+
+
+.product-card:hover .product-image img {
+    transform: scale(1.06);
+}
+
+
+/* اسم المنتج */
+.product-card h3{
+    font-size:20px;
+    font-weight:600;
+
+    color:#222;
+
+    margin:18px 18px 10px;
+}
+
+
+/* وصف المنتج */
+.product-card p{
+    color:#777;
+
+    line-height:1.7;
+
+    margin:0 18px 15px;
+}
+
+
+/* السعر */
+.price{
+    display:block;
+
+    margin:0 18px 15px;
+
+    color:#b38b59;
+
+    font-size:22px;
+    font-weight:bold;
+}
+
+
+/* زر السلة */
+.product-card button{
+    width:calc(100% - 36px);
+
+    margin:0 18px 18px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#222;
+
+    color:#fff;
+
+    padding:14px;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.product-card button:hover{
+    background:#b38b59;
+}
+
+
+/* حركة الزر */
+.product-card button:hover {
+    background: #9a6a32;
+    transform: scale(1.03);
+}
+.product-container{
+    width:95%;
+    max-width:1500px;
+    margin:40px auto;
+
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+}
+
+/* تصميم الهاتف */
+@media (max-width: 900px) {
+    .product-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .product-container {
+        width: 94%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-image {
+        height: 160px;
+    }
+}
+
+
+/* بطاقات الجوال */
+@media (max-width:768px){
+
+    .product-container{
+        display:flex;
+        overflow-x:auto;
+        gap:15px;
+
+        padding:0 15px 15px;
+
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+    }
+    .product-card{
+    width:190px;
+    min-width:190px;
+    flex:0 0 190px;
+    scroll-snap-align:start;
+}
+
+    .product-container::-webkit-scrollbar{
+        display:none;
+    }
+
+    .product-card{
+        min-width:180px;
+        flex:0 0 auto;
+        scroll-snap-align:start;
+    }
+}
+/* البطاقة الحديثة التجريبية */
+
+.featured-card {
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #f0ece7;
+    border-radius: 18px;
+    overflow: hidden;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.045);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    display: flex;
+flex-direction: column;
+}
+
+.featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+
+/* مساحة الصورة */
+.featured-card .product-image {
+    width: 100%;
+    height: 260px;
+    padding: 8px;
+
+    background: #faf9f7;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+/* صورة العطر */
+.featured-card .product-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    object-fit: contain;
+
+    transition: transform 0.4s ease;
+}
+
+.featured-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+
+/* معلومات المنتج */
+
+.featured-card .product-info {
+    padding: 15px;
+    text-align: right;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+/* اسم الشركة */
+.featured-card .product-brand {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #9b8068;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+/* اسم العطر */
+.featured-card h3{
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    line-height:1.35;
+
+    color:#222;
+
+    text-align:center;
+
+    margin:0 0 16px;
+
+    min-height:52px;
+
+}
+
+
+/* السعر والزر */
+.featured-card .product-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* السعر */
+.featured-card .price{
+
+    display:block;
+
+    text-align:center;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#9b7451;
+
+    margin-bottom:16px;
+
+    direction:ltr;
+
+}
+
+/* الزر */
+.featured-card button{
+
+    width: calc(100% - 20px);
+
+    margin-left: auto;
+margin-right: auto;
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2f863b;
+
+    color:#ffffff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    cursor:pointer;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    box-shadow:0 10px 18px rgba(182,149,114,.25);
+    margin-top: auto;
+}
+
+.featured-card button:hover{
+
+    background:#37dc53;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 24px rgba(157,122,85,.30);
+}
+
+.product-card{
+    width:100%;
+    min-width:0;
+    box-sizing:border-box;
+
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(8px);
+
+    border:1px solid #f0ece7;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+html,
+body{
+    width:100%;
+    overflow-x:hidden;
+}
+.cart-btn i{
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+/* ترك مساحة تحت الشريط الثابت */
+
+body {
+    padding-top: 50px;
+}
+/* توسيط زر الشراء داخل البطاقة */
+
+.cart-btn {
+    display: block;
+    width: calc(100% - 30px);
+    margin: auto auto 15px;
+    text-align: center;
+}
