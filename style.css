@@ -316,55 +316,6 @@ nav a:hover{
     gap:20px;
 }
 
-/* تصميم الجوال */
-@media (max-width:768px){
-
-    .product-container{
-        display:block;
-    }
-
-    .product-row{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:8px 0 12px 0;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-}
-
-.product-row::-webkit-scrollbar{
-    display:none;
-}
-
-.product-row .product-card{
-    flex:0 0 150px;
-    min-width:150px;
-    max-width:150px;
-    scroll-snap-align:start;
-}
-
-.product-row .product-image{
-    height:110px;
-}
-
-    .product-row .product-info{
-        padding:8px;
-    }
-
-    .product-row h3{
-        font-size:18px;
-    }
-
-    .product-row .price{
-        font-size:20px;
-    }
-
-    .product-row .cart-btn{
-        font-size:14px;
-        padding:10px;
-    }
-}
-
 /* البطاقة الحديثة التجريبية */
 
 .featured-card {
@@ -574,13 +525,31 @@ body {
     margin: auto auto 15px;
     text-align: center;
 }
-
 @media (max-width: 768px) {
 
+    .product-container {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
     .product-row {
+        display: flex;
         align-items: flex-start;
-        padding: 8px 12px 14px;
         gap: 10px;
+        width: 100%;
+        margin: 0;
+        padding: 8px 10px 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .product-row::-webkit-scrollbar {
+        display: none;
     }
 
     .product-row .product-card,
@@ -590,77 +559,34 @@ body {
         min-width: 145px;
         height: auto;
         min-height: 0;
+        margin: 0;
+        padding-bottom: 8px;
+        box-sizing: border-box;
+        scroll-snap-align: start;
     }
 
-    .product-row .product-image,
-    .product-row .featured-card .product-image {
-        height: 120px;
-        min-height: 0;
-        padding: 4px;
-    }
-
-    .product-row .product-info,
-    .product-row .featured-card .product-info {
-        padding: 8px 6px 10px;
-        min-height: 0;
-    }
-
-    .product-row .product-brand {
-        font-size: 9px;
-        margin: 0 0 4px;
+    .product-row .product-card img,
+    .product-row .featured-card img {
+        width: 100%;
+        height: 125px;
+        object-fit: contain;
+        display: block;
     }
 
     .product-row h3 {
-        font-size: 13px;
-        line-height: 1.2;
-        min-height: 32px;
-        margin: 4px 0;
+        margin: 7px 5px;
+        font-size: 16px;
+        line-height: 1.25;
     }
 
     .product-row .price {
-        font-size: 16px;
-        line-height: 1;
-        margin: 7px 0;
+        margin: 6px 0 8px;
+        font-size: 21px;
     }
 
     .product-row .cart-btn {
-        padding: 7px 3px;
-        font-size: 11px;
-        line-height: 1.1;
-        min-height: 36px;
-        margin: 0;
+        width: calc(100% - 14px);
+        margin: 5px auto 2px;
+        padding: 10px 4px;
     }
-
-.product-row .product-info{
-    padding:6px 8px 8px;
-    min-height:0;
-}
-
-.product-row .product-brand{
-    margin:4px 0;
-    font-size:11px;
-}
-
-.product-row h3{
-    margin:5px 0;
-    font-size:16px;
-    line-height:1.2;
-    min-height:0;
-}
-
-.product-row .price{
-    display:block;
-    margin:8px 0;
-    font-size:20px;
-}
-
-.product-row .cart-btn{
-    margin-top:5px;
-    padding:10px 8px;
-    min-height:44px;
-}
-
-.product-row .product-image{
-    height:115px;
-}
 }
