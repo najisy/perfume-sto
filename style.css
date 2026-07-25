@@ -317,81 +317,51 @@ nav a:hover{
 }
 
 /* تصميم الجوال */
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-    .products {
-        width: 100%;
-        padding: 25px 10px;
-        box-sizing: border-box;
-        background: transparent;
+    .product-container{
+        display:block;
     }
 
-    .product-container {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-
-        padding: 0;
-        overflow: visible;
-        box-sizing: border-box;
+    .product-row{
+        display:flex;
+        gap:12px;
+        overflow-x:auto;
+        padding:10px 15px 20px;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
     }
 
-    .product-card,
-    .featured-card {
-        width: 100%;
-        min-width: 0;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        border-radius: 14px;
+    .product-row::-webkit-scrollbar{
+        display:none;
     }
 
-    .featured-card .product-image,
-    .product-card .product-image {
-        width: 100%;
-        height: 165px;
-        padding: 5px;
-        box-sizing: border-box;
+    .product-row .product-card{
+        flex:0 0 155px;
+        min-width:155px;
+        max-width:155px;
+        scroll-snap-align:start;
     }
 
-    .featured-card .product-image img,
-    .product-card .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+    .product-row .product-image{
+        height:145px;
     }
 
-    .featured-card .product-info,
-    .product-card .product-info {
-        padding: 10px 7px;
+    .product-row .product-info{
+        padding:12px;
     }
 
-    .product-brand {
-        font-size: 12px;
+    .product-row h3{
+        font-size:18px;
     }
 
-    .product-card h3 {
-        font-size: 15px;
-        margin: 8px 0;
-        min-height: 38px;
+    .product-row .price{
+        font-size:20px;
     }
 
-    .price {
-        font-size: 18px;
-        display: block;
-        margin: 10px 0;
-    }
-
-    .cart-btn {
-        width: 100%;
-        padding: 10px 4px;
-        font-size: 13px;
-        border-radius: 10px;
+    .product-row .cart-btn{
+        font-size:14px;
+        padding:10px;
     }
 }
 
@@ -603,4 +573,61 @@ body {
     width: calc(100% - 30px);
     margin: auto auto 15px;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    .product-row {
+        align-items: flex-start;
+        padding: 8px 12px 14px;
+        gap: 10px;
+    }
+
+    .product-row .product-card,
+    .product-row .featured-card {
+        flex: 0 0 145px;
+        width: 145px;
+        min-width: 145px;
+        height: auto;
+        min-height: 0;
+    }
+
+    .product-row .product-image,
+    .product-row .featured-card .product-image {
+        height: 120px;
+        min-height: 0;
+        padding: 4px;
+    }
+
+    .product-row .product-info,
+    .product-row .featured-card .product-info {
+        padding: 8px 6px 10px;
+        min-height: 0;
+    }
+
+    .product-row .product-brand {
+        font-size: 9px;
+        margin: 0 0 4px;
+    }
+
+    .product-row h3 {
+        font-size: 13px;
+        line-height: 1.2;
+        min-height: 32px;
+        margin: 4px 0;
+    }
+
+    .product-row .price {
+        font-size: 16px;
+        line-height: 1;
+        margin: 7px 0;
+    }
+
+    .product-row .cart-btn {
+        padding: 7px 3px;
+        font-size: 11px;
+        line-height: 1.1;
+        min-height: 36px;
+        margin: 0;
+    }
 }
