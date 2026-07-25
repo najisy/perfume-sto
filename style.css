@@ -630,4 +630,37 @@ body {
         min-height: 36px;
         margin: 0;
     }
+
+.product-row .product-info{
+    padding:6px 8px 8px;
+    min-height:0;
+}
+
+.product-row .product-brand{
+    margin:4px 0;
+    font-size:11px;
+}
+
+.product-row h3{
+    margin:5px 0;
+    font-size:16px;
+    line-height:1.2;
+    min-height:0;
+}
+
+.product-row .price{
+    display:block;
+    margin:8px 0;
+    font-size:20px;
+}
+
+.product-row .cart-btn{
+    margin-top:5px;
+    padding:10px 8px;
+    min-height:44px;
+}
+
+.product-row .product-image{
+    height:115px;
+}
 }
