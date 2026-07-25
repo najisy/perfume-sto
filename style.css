@@ -564,9 +564,9 @@ body {
 
     .product-row .product-card,
     .product-row .featured-card {
-        flex: 0 0 115px !important;
-        width: 115px !important;
-        min-width: 115px !important;
+        flex: 0 0 145px !important;
+        width: 145px !important;
+        min-width: 145px !important;
 
         height: fit-content !important;
         min-height: 0 !important;
