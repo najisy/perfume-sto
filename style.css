@@ -529,7 +529,8 @@ body {
 
     /* الجوال فقط: كل سطر مستقل ويمكن سحبه أفقياً */
     .products {
-        padding: 40px 0;
+        padding: 10px 0 40px;
+margin-top: -30px;
     }
 
     .product-container {
