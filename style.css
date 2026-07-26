@@ -527,12 +527,17 @@ body {
 }
 @media (max-width: 768px) {
 
-    html,
-    body {
+    /* الجوال فقط: كل سطر مستقل ويمكن سحبه أفقياً */
+    .products {
+        padding: 40px 0;
+    }
+
+    .product-container {
+        display: block;
         width: 100%;
-        margin: 0;
+        max-width: none;
+        margin: 20px 0;
         padding: 0;
-        overflow-x: hidden;
     }
 
     .product-row {
@@ -542,7 +547,7 @@ body {
 
         width: 100%;
         max-width: 100%;
-        margin: 0;
+        margin: 0 0 16px;
         padding: 0 8px;
 
         overflow-x: auto;
@@ -558,93 +563,104 @@ body {
         display: none;
     }
 
-    .product-row .product-card,
-    .product-row .featured-card {
-        flex: 0 0 120px !important;
-        width: 120px !important;
-        min-width: 120px !important;
+    .product-row > .product-card,
+    .product-row > .featured-card {
+        flex: 0 0 120px;
+        width: 120px;
+        min-width: 120px;
 
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
 
-        margin: 0 !important;
-        padding: 0 !important;
-
-        display: block !important;
+        display: flex;
+        flex-direction: column;
         align-self: flex-start;
+
         box-sizing: border-box;
         scroll-snap-align: start;
     }
 
-    .product-row .product-image,
-    .product-row .card-image,
-    .product-row .image-box,
-    .product-row .featured-image {
-        width: 100% !important;
-        height: 100px !important;
-        min-height: 100px !important;
-        max-height: 100px !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
+    .product-row > .product-card .product-image,
+    .product-row > .featured-card .product-image {
+        width: 100%;
+        height: 100px;
+        min-height: 100px;
+        max-height: 100px;
+        margin: 0;
+        padding: 0;
         overflow: hidden;
     }
 
-    .product-row .product-card img,
-    .product-row .featured-card img {
-        width: 100% !important;
-        height: 100px !important;
-        min-height: 100px !important;
-        max-height: 100px !important;
-
-        object-fit: contain !important;
+    .product-row > .product-card .product-image img,
+    .product-row > .featured-card .product-image img {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        max-height: none;
+        object-fit: contain;
         display: block;
-        margin: 0 !important;
-        padding: 0 !important;
+        margin: 0;
+        padding: 0;
     }
 
-    .product-row .product-info,
-    .product-row .card-content {
-        display: block !important;
-        height: auto !important;
-        min-height: 0 !important;
+    .product-row > .featured-card .product-info,
+    .product-row > .product-card .product-info,
+    .product-row > .product-card .card-content {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 6px 5px;
 
-        margin: 0 !important;
-        padding: 5px 4px !important;
+        display: flex;
+        flex-direction: column;
     }
 
-    .product-row h3 {
-        margin: 3px 2px !important;
-        font-size: 13px !important;
-        line-height: 1.15 !important;
+    .product-row .product-brand {
+        margin: 0 0 3px;
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .product-row h3,
+    .product-row .featured-card h3 {
+        min-height: 0;
+        margin: 2px 0 4px;
+        font-size: 12px;
+        line-height: 1.2;
     }
 
     .product-row p {
-        margin: 2px !important;
-        font-size: 11px !important;
-        line-height: 1.15 !important;
+        margin: 2px 0 4px;
+        font-size: 10px;
+        line-height: 1.2;
     }
 
-    .product-row .price {
-        margin: 5px 0 !important;
-        font-size: 16px !important;
-        line-height: 1.1 !important;
+    .product-row .product-bottom {
+        gap: 4px;
+    }
+
+    .product-row .price,
+    .product-row .featured-card .price {
+        margin: 3px 0 5px;
+        font-size: 15px;
+        line-height: 1.1;
     }
 
     .product-row .cart-btn,
-    .product-row button {
-        width: calc(100% - 8px) !important;
-
-        margin: 4px auto !important;
-        padding: 6px 2px !important;
-
-        font-size: 12px !important;
-        line-height: 1.15 !important;
+    .product-row button,
+    .product-row .featured-card button {
+        width: calc(100% - 8px);
+        margin: 3px auto 5px;
+        padding: 6px 2px;
+        border-radius: 8px;
+        font-size: 11px;
+        line-height: 1.15;
     }
 
     .product-row .cart-btn i {
         margin-left: 4px;
-        font-size: 14px;
+        font-size: 12px;
     }
 }
