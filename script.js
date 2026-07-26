@@ -1,12 +1,30 @@
-const addToCartButtons = document.querySelectorAll(".cart-btn");
-const mobileCartCount = document.querySelector(".mobile-cart .cart-count");
+document.addEventListener("DOMContentLoaded", function () {
+  const addToCartButtons = document.querySelectorAll(".cart-btn");
+  const mobileCart = document.querySelector(".mobile-cart");
+  const mobileCartCount = document.querySelector(
+    ".mobile-cart .cart-count"
+  );
 
-let cartCount = 0;
+  let totalCartCount = 0;
 
-addToCartButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    cartCount++;
+  addToCartButtons.forEach(function (button) {
+    let productCount = 0;
 
-    mobileCartCount.textContent = cartCount;
+    const countBadge = document.createElement("span");
+    countBadge.className = "product-count";
+    countBadge.textContent = "0";
+
+    button.appendChild(countBadge);
+
+    button.addEventListener("click", function () {
+      productCount++;
+      totalCartCount++;
+
+      countBadge.textContent = productCount;
+      countBadge.classList.add("show");
+
+      mobileCartCount.textContent = totalCartCount;
+      mobileCart.classList.add("show");
+    });
   });
 });
