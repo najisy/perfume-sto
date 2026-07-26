@@ -669,7 +669,7 @@ body {
 @media (max-width: 768px) {
   .hero {
     min-height: 30vh;
-    padding: 20px 20px 30px;
+    padding: 50px 20px 30px;
 
     background-size: 100% 100%;
     background-position: center;
