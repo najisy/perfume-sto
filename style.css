@@ -666,3 +666,11 @@ body {
         font-size: 12px;
     }
 }
+@media (max-width: 768px) {
+  .hero {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+}
