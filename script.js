@@ -1,68 +1,222 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const addToCartButtons = document.querySelectorAll(".cart-btn");
+document.addEventListener("DOMContentLoaded", () => {
 
-    addToCartButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            const productCard = button.closest(".product-card");
+    const cartButtons = document.querySelectorAll(".cart-btn");
 
-            const productName =
-                productCard.querySelector("h3")?.textContent || "المنتج";
+    let totalItems = 0;
+    let totalPrice = 0;
 
-            const productPrice =
-                productCard.querySelector(".price")?.textContent || "";
+    let activeProduct = null;
 
-            let bottomCart = document.querySelector(".bottom-cart");
+    // إنشاء السلة السفلية
+    const bottomCart = document.createElement("div");
+    bottomCart.className = "bottom-cart";
 
-            if (!bottomCart) {
-                bottomCart = document.createElement("div");
-                bottomCart.className = "bottom-cart";
+    bottomCart.innerHTML = `
+        <div class="bottom-cart-wrapper">
 
-                bottomCart.innerHTML = `
-                    <button class="bottom-add-btn">
-                        أضف للسلة
-                        <span class="bottom-price"></span>
-                    </button>
+            <div class="bottom-cart-quantity">
 
-                    <div class="bottom-quantity">
-                        <button class="bottom-minus" type="button">−</button>
-                        <span class="bottom-count">1</span>
-                        <button class="bottom-plus" type="button">+</button>
-                    </div>
-                `;
+                <button class="bottom-minus">−</button>
 
-                document.body.appendChild(bottomCart);
-            }
+                <span class="bottom-count">1</span>
 
-            const priceText = bottomCart.querySelector(".bottom-price");
-            const countText = bottomCart.querySelector(".bottom-count");
-            const plusButton = bottomCart.querySelector(".bottom-plus");
-            const minusButton = bottomCart.querySelector(".bottom-minus");
-            const addButton = bottomCart.querySelector(".bottom-add-btn");
+                <button class="bottom-plus">+</button>
 
-            let quantity = 1;
+            </div>
 
-            priceText.textContent = productPrice;
-            countText.textContent = quantity;
+            <button class="bottom-cart-button">
+
+                <span class="bottom-cart-text">
+                    أضف للسلة
+                </span>
+
+                <span class="bottom-cart-total">
+                    0 AED
+                </span>
+
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(bottomCart);
+
+    const bottomCount =
+        bottomCart.querySelector(".bottom-count");
+
+    const bottomTotal =
+        bottomCart.querySelector(".bottom-cart-total");
+
+    const bottomPlus =
+        bottomCart.querySelector(".bottom-plus");
+
+    const bottomMinus =
+        bottomCart.querySelector(".bottom-minus");
+
+    function getPrice(card){
+
+        const price =
+            card.querySelector(".price");
+
+        if(!price) return 0;
+
+        return Number(
+            price.textContent
+            .replace(/,/g,"")
+            .match(/\d+/)[0]
+        );
+
+    }
+
+    function updateBottom(){
+
+        bottomTotal.textContent =
+            totalPrice.toLocaleString()+" AED";
+
+        bottomCount.textContent =
+            totalItems;
+
+        if(totalItems>0){
 
             bottomCart.classList.add("show");
 
-            plusButton.onclick = function () {
-                quantity++;
-                countText.textContent = quantity;
+        }else{
+
+            bottomCart.classList.remove("show");
+
+        }
+
+    }
+
+    cartButtons.forEach(button=>{
+
+        const card =
+            button.closest(".product-card");
+
+        const price =
+            getPrice(card);
+
+        let quantity=0;
+
+        const box =
+            document.createElement("div");
+
+        box.className="product-quantity";
+
+        box.innerHTML=`
+
+            <button class="quantity-minus">−</button>
+
+            <span class="quantity-number">0</span>
+
+            <button class="quantity-plus">+</button>
+
+        `;        button.insertAdjacentElement("afterend", box);
+
+        const plus =
+            box.querySelector(".quantity-plus");
+
+        const minus =
+            box.querySelector(".quantity-minus");
+
+        const number =
+            box.querySelector(".quantity-number");
+
+        function refresh(){
+
+            number.textContent=quantity;
+
+            if(quantity>0){
+
+                button.classList.add("quantity-active");
+                box.classList.add("show");
+
+            }else{
+
+                button.classList.remove("quantity-active");
+                box.classList.remove("show");
+
+            }
+
+            updateBottom();
+
+        }
+
+        function add(){
+
+            quantity++;
+
+            totalItems++;
+
+            totalPrice+=price;
+
+            activeProduct={
+                add:add,
+                remove:remove
             };
 
-            minusButton.onclick = function () {
-                if (quantity > 1) {
-                    quantity--;
-                    countText.textContent = quantity;
-                }
-            };
+            refresh();
 
-            addButton.onclick = function () {
-                alert(
-                    `تمت إضافة ${quantity} من ${productName} إلى السلة`
-                );
-            };
+        }
+
+        function remove(){
+
+            if(quantity===0)return;
+
+            quantity--;
+
+            totalItems--;
+
+            totalPrice-=price;
+
+            if(totalPrice<0)
+                totalPrice=0;
+
+            refresh();
+
+        }
+
+        button.addEventListener("click",e=>{
+
+            if(
+                !window.matchMedia("(max-width:768px)").matches
+            ) return;
+
+            e.preventDefault();
+
+            add();
+
         });
+
+        plus.addEventListener("click",add);
+
+        minus.addEventListener("click",remove);
+
     });
+
+    bottomPlus.addEventListener("click",()=>{
+
+        if(activeProduct)
+            activeProduct.add();
+
+    });
+
+    bottomMinus.addEventListener("click",()=>{
+
+        if(activeProduct)
+            activeProduct.remove();
+
+    });    bottomCart
+        .querySelector(".bottom-cart-button")
+        .addEventListener("click", () => {
+
+            alert(
+                `عدد القطع: ${totalItems}\n` +
+                `الإجمالي: ${totalPrice.toLocaleString()} AED`
+            );
+
+        });
+
+    updateBottom();
+
 });
