@@ -12,32 +12,29 @@ document.addEventListener("DOMContentLoaded", () => {
     bottomCart.className = "bottom-cart";
 
     bottomCart.innerHTML = `
-        <div class="bottom-cart-wrapper">
+    <div class="bottom-cart-wrapper">
 
-            <div class="bottom-cart-quantity">
+        <span class="bottom-cart-title">أضف للسلة</span>
 
-                <button class="bottom-minus">−</button>
-
-                <span class="bottom-count">1</span>
-
-                <button class="bottom-plus">+</button>
-
-            </div>
-
-            <button class="bottom-cart-button">
-
-                <span class="bottom-cart-text">
-                    أضف للسلة
-                </span>
-
-                <span class="bottom-cart-total">
-                    0 AED
-                </span>
-
-            </button>
-
+        <div class="bottom-cart-quantity">
+            <button type="button" class="bottom-plus">+</button>
+            <span class="bottom-count">1</span>
+            <button type="button" class="bottom-minus">−</button>
         </div>
-    `;
+
+<div class="bottom-cart-price">
+    <span class="bottom-cart-total">0 AED</span>
+<span class="bottom-cart-bag" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26">
+        <path fill="currentColor"
+        d="M7 7V6a5 5 0 0110 0v1h2v13H5V7h2zm2 0h6V6a3 3 0 00-6 0v1z"/>
+    </svg>
+</span>
+
+</div>
+
+    </div>
+`;
 
     document.body.appendChild(bottomCart);
 
