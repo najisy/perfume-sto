@@ -1,91 +1,68 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addToCartButtons = document.querySelectorAll(".cart-btn");
-    const mobileCart = document.querySelector(".mobile-cart");
-    const mobileCartCount = document.querySelector(
-        ".mobile-cart .cart-count"
-    );
-
-    let totalCartCount = 0;
-
-    function updateMobileCart() {
-        mobileCartCount.textContent = totalCartCount;
-
-        if (totalCartCount > 0) {
-            mobileCart.classList.add("show");
-        } else {
-            mobileCart.classList.remove("show");
-        }
-    }
 
     addToCartButtons.forEach(function (button) {
-        let productCount = 0;
+        button.addEventListener("click", function () {
+            const productCard = button.closest(".product-card");
 
-        const quantityBox = document.createElement("div");
-        quantityBox.className = "product-quantity";
+            const productName =
+                productCard.querySelector("h3")?.textContent || "المنتج";
 
-        const minusButton = document.createElement("button");
-        minusButton.className = "quantity-minus";
-        minusButton.type = "button";
-        minusButton.textContent = "−";
+            const productPrice =
+                productCard.querySelector(".price")?.textContent || "";
 
-        const quantityNumber = document.createElement("span");
-        quantityNumber.className = "quantity-number";
-        quantityNumber.textContent = "0";
+            let bottomCart = document.querySelector(".bottom-cart");
 
-        const plusButton = document.createElement("button");
-        plusButton.className = "quantity-plus";
-        plusButton.type = "button";
-        plusButton.textContent = "+";
+            if (!bottomCart) {
+                bottomCart = document.createElement("div");
+                bottomCart.className = "bottom-cart";
 
-        quantityBox.appendChild(minusButton);
-        quantityBox.appendChild(quantityNumber);
-        quantityBox.appendChild(plusButton);
+                bottomCart.innerHTML = `
+                    <button class="bottom-add-btn">
+                        أضف للسلة
+                        <span class="bottom-price"></span>
+                    </button>
 
-        button.insertAdjacentElement("afterend", quantityBox);
+                    <div class="bottom-quantity">
+                        <button class="bottom-minus" type="button">−</button>
+                        <span class="bottom-count">1</span>
+                        <button class="bottom-plus" type="button">+</button>
+                    </div>
+                `;
 
-        function updateProduct() {
-            quantityNumber.textContent = productCount;
-
-            if (productCount > 0) {
-                quantityBox.classList.add("show");
-                button.classList.add("quantity-active");
-            } else {
-                quantityBox.classList.remove("show");
-                button.classList.remove("quantity-active");
+                document.body.appendChild(bottomCart);
             }
 
-            updateMobileCart();
-        }
+            const priceText = bottomCart.querySelector(".bottom-price");
+            const countText = bottomCart.querySelector(".bottom-count");
+            const plusButton = bottomCart.querySelector(".bottom-plus");
+            const minusButton = bottomCart.querySelector(".bottom-minus");
+            const addButton = bottomCart.querySelector(".bottom-add-btn");
 
-        button.addEventListener("click", function (event) {
-            if (!window.matchMedia("(max-width: 768px)").matches) {
-                return;
-            }
+            let quantity = 1;
 
-            event.preventDefault();
+            priceText.textContent = productPrice;
+            countText.textContent = quantity;
 
-            productCount++;
-            totalCartCount++;
+            bottomCart.classList.add("show");
 
-            updateProduct();
-        });
+            plusButton.onclick = function () {
+                quantity++;
+                countText.textContent = quantity;
+            };
 
-        plusButton.addEventListener("click", function () {
-            productCount++;
-            totalCartCount++;
+            minusButton.onclick = function () {
+                if (quantity > 1) {
+                    quantity--;
+                    countText.textContent = quantity;
+                }
+            };
 
-            updateProduct();
-        });
-
-        minusButton.addEventListener("click", function () {
-            if (productCount > 0) {
-                productCount--;
-                totalCartCount--;
-
-                updateProduct();
-            }
+            addButton.onclick = function () {
+                alert(
+                    `تمت إضافة ${quantity} من ${productName} إلى السلة`
+                );
+            };
         });
     });
-
-    updateMobileCart();
 });
