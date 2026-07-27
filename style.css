@@ -729,75 +729,121 @@ margin-top: -25px;
     display: none;
 }
 
-@media (max-width: 768px) {
-    .bottom-cart {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 9999;
-
-        display: none;
-        align-items: center;
-        gap: 12px;
-
-        padding: 12px 16px;
-        background: #fff;
-        border-top: 1px solid #ddd;
-    }
-
     .bottom-cart.show {
         display: flex;
-    }
-
-    .bottom-add-btn {
-        flex: 1;
-        height: 56px;
-        border: none;
-        border-radius: 16px;
-        background: #2f684f;
-        color: #fff;
-        font-size: 19px;
-        font-weight: 700;
-        cursor: pointer;
-    }
-
-    .bottom-price {
-        margin-right: 6px;
-    }
-
-    .bottom-quantity {
-        width: 155px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        border: 1px solid #ddd;
-        border-radius: 16px;
-        background: #faf7f1;
-        overflow: hidden;
-    }
-
-    .bottom-minus,
-    .bottom-plus {
-        width: 48px;
-        height: 56px;
-        border: none;
-        background: transparent;
-        font-size: 30px;
-        cursor: pointer;
-    }
-
-    .bottom-count {
-        width: 45px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 700;
     }
 
     body {
         padding-bottom: 90px;
     }
+}
+@media (max-width:768px){
+
+body{
+    padding-bottom:95px;
+}
+
+/* إخفاء زر Add to Cart عند ظهور العداد */
+.cart-btn.quantity-active{
+    display:none;
+}
+
+/* عداد المنتج */
+.product-quantity{
+    display:none;
+    width:120px;
+    height:40px;
+    margin:6px auto;
+    background:#ffffff;
+    border:1px solid #dcdcdc;
+    border-radius:12px;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.product-quantity.show{
+    display:flex;
+}
+
+.quantity-minus,
+.quantity-plus{
+    width:38px;
+    height:38px;
+    border:none;
+    background:#fff;
+    color:#222;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.quantity-number{
+    font-size:20px;
+    font-weight:bold;
+    color:#222;
+}
+
+/* السلة السفلية */
+.bottom-cart{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    display:none;
+    z-index:9999;
+}
+
+.bottom-cart.show{
+    display:block;
+}
+
+.bottom-cart-wrapper{
+    display:flex;
+    gap:10px;
+}
+
+.bottom-cart-quantity{
+    width:120px;
+    height:58px;
+    background:#fff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid #ddd;
+}
+
+.bottom-minus,
+.bottom-plus{
+    width:40px;
+    height:58px;
+    border:none;
+    background:#fff;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.bottom-count{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.bottom-cart-button{
+    flex:1;
+    height:58px;
+    border:none;
+    border-radius:14px;
+    background:#2e7d32;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.bottom-cart-total{
+    font-size:20px;
 }
 }
