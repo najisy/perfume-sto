@@ -671,7 +671,7 @@ margin-top: -25px;
     }
   .hero {
   justify-content: flex-start;
-  padding: 35px 20px 35px;
+  padding: 100px 20px 35px;
   border-bottom: none;
 
   background-image:
@@ -681,7 +681,7 @@ margin-top: -25px;
     ),
     url("images/hero-mobile.png");
 
-  background-size: cover, cover;
+  background-size: cover, contain;
   background-position: center, center;
   background-repeat: no-repeat;
   background-attachment: scroll;
