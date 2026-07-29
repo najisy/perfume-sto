@@ -1,17 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const mobileScreen = window.matchMedia("(max-width: 768px)");
   const productCards = [...document.querySelectorAll(".product-card")];
   const products = new Map();
   const cart = new Map();
 
-  const money = (value) =>
+  /* Unicode escapes keep Arabic correct even if the file encoding changes. */
+  const AR = {
+    openCart: "\u0641\u062a\u062d \u0633\u0644\u0629 \u0627\u0644\u0645\u0634\u062a\u0631\u064a\u0627\u062a",
+    lastAdded: "\u0622\u062e\u0631 \u0625\u0636\u0627\u0641\u0629",
+    selectedOrder: "\u0637\u0644\u0628\u0643 \u0627\u0644\u0645\u062e\u062a\u0627\u0631",
+    cartTitle: "\u0633\u0644\u0629 \u0627\u0644\u0645\u0634\u062a\u0631\u064a\u0627\u062a",
+    oneProduct: "\u0645\u0646\u062a\u062c \u0648\u0627\u062d\u062f",
+    products: "\u0645\u0646\u062a\u062c\u0627\u062a",
+    closeCart: "\u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0633\u0644\u0629",
+    emptyCart: "\u0627\u0644\u0633\u0644\u0629 \u0641\u0627\u0631\u063a\u0629",
+    choosePerfume: "\u0627\u062e\u062a\u0631 \u0639\u0637\u0631\u0643 \u0627\u0644\u0645\u0641\u0636\u0644 \u0644\u064a\u0638\u0647\u0631 \u0647\u0646\u0627",
+    total: "\u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a",
+    selectedProducts: "\u0634\u0627\u0645\u0644 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u0645\u062e\u062a\u0627\u0631\u0629",
+    checkout: "\u0625\u062a\u0645\u0627\u0645 \u0627\u0644\u0637\u0644\u0628",
+    decrease: "\u062a\u0642\u0644\u064a\u0644 \u0627\u0644\u0643\u0645\u064a\u0629",
+    increase: "\u0632\u064a\u0627\u062f\u0629 \u0627\u0644\u0643\u0645\u064a\u0629",
+    remove: "\u062d\u0630\u0641",
+    product: "\u0645\u0646\u062a\u062c",
+    pieces: "\u0639\u062f\u062f \u0627\u0644\u0642\u0637\u0639",
+  };
+
+  const formatMoney = (value) =>
     `${Math.round(value).toLocaleString("en-US")} AED`;
 
   const readPrice = (card) => {
     const priceElement = card.querySelector(".price");
     if (!priceElement) return 0;
 
-    const match = priceElement.textContent.replace(/,/g, "").match(/\d+(?:\.\d+)?/);
+    const match = priceElement.textContent
+      .replace(/,/g, "")
+      .match(/\d+(?:\.\d+)?/);
+
     return match ? Number(match[0]) : 0;
   };
 
@@ -23,107 +46,109 @@ document.addEventListener("DOMContentLoaded", () => {
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
 
-  let activeProductId = null;
+  const cartDock = document.createElement("button");
+  cartDock.type = "button";
+  cartDock.className = "lux-cart-dock";
+  cartDock.setAttribute("aria-label", AR.openCart);
+  cartDock.innerHTML = `
+    <span class="lux-cart-bag" aria-hidden="true">
+      <svg class="lux-cart-bag-icon" viewBox="0 0 32 32">
+        <path d="M8 7.5h18v18H8V7.5Z"></path>
+        <path d="M8 7.5 5.5 10v15.5H26"></path>
+        <path d="M8 25.5 5.5 22.8"></path>
+        <path d="M12 10.5v3a4 4 0 0 0 8 0v-3"></path>
+      </svg>
+      <b class="lux-cart-badge">0</b>
+    </span>
 
-  const summaryBar = document.createElement("div");
-  summaryBar.className = "cart-summary-bar";
-  summaryBar.innerHTML = `
-    <span class="cart-summary-price">
-      <strong class="cart-summary-total">0 AED</strong>
-      <span class="cart-summary-icon" aria-hidden="true">
+    <span class="lux-cart-preview">
+      <span class="lux-cart-preview-image-wrap">
+        <img class="lux-cart-preview-image" alt="">
+      </span>
+      <span class="lux-cart-copy">
+        <small>${AR.lastAdded}</small>
+        <strong class="lux-cart-preview-name">${AR.product}</strong>
+      </span>
+    </span>
+
+    <span class="lux-cart-total-wrap">
+      <strong class="lux-cart-total">0 AED</strong>
+      <span class="lux-cart-chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="m6 14 6-6 6 6"></path>
+        </svg>
+      </span>
+    </span>
+  `;
+
+  const backdrop = document.createElement("div");
+  backdrop.className = "lux-cart-backdrop";
+
+  const cartSheet = document.createElement("section");
+  cartSheet.className = "lux-cart-sheet";
+  cartSheet.setAttribute("dir", "rtl");
+  cartSheet.setAttribute("aria-hidden", "true");
+  cartSheet.innerHTML = `
+    <div class="lux-cart-handle" aria-hidden="true"></div>
+
+    <header class="lux-cart-header">
+      <div>
+        <span class="lux-cart-eyebrow">${AR.selectedOrder}</span>
+        <h2>${AR.cartTitle}</h2>
+        <p class="lux-cart-sheet-count">0 ${AR.products}</p>
+      </div>
+
+      <button type="button" class="lux-cart-close" aria-label="${AR.closeCart}">&times;</button>
+    </header>
+
+    <div class="lux-cart-list"></div>
+
+    <div class="lux-cart-empty">
+      <span class="lux-cart-empty-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
           <path d="M7 8V6a5 5 0 0 1 10 0v2M4.5 8h15l-1 13h-13l-1-13Z"></path>
         </svg>
       </span>
-    </span>
+      <strong>${AR.emptyCart}</strong>
+      <small>${AR.choosePerfume}</small>
+    </div>
 
-    <span class="cart-summary-center">
-      <button
-        type="button"
-        class="cart-summary-open"
-        aria-label="عرض منتجات السلة"
-      >
+    <footer class="lux-cart-footer">
+      <div class="lux-cart-total-row">
+        <span>
+          <small>${AR.total}</small>
+          <strong class="lux-cart-sheet-total">0 AED</strong>
+        </span>
+        <span class="lux-cart-tax-note">${AR.selectedProducts}</span>
+      </div>
+
+      <button type="button" class="lux-cart-checkout">
+        <span>${AR.checkout}</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="m6 14 6-6 6 6"></path>
+          <path d="m9 6 6 6-6 6"></path>
         </svg>
       </button>
-
-      <span class="cart-summary-quantity">
-        <button type="button" class="cart-summary-minus" aria-label="تقليل الكمية">−</button>
-        <strong class="cart-summary-active-count">0</strong>
-        <button type="button" class="cart-summary-plus" aria-label="زيادة الكمية">+</button>
-      </span>
-    </span>
-
-    <button
-      type="button"
-      class="cart-summary-label-button"
-      aria-label="فتح سلة المشتريات"
-    >
-      <span class="cart-summary-label">السلة</span>
-      <span class="cart-summary-count">0</span>
-    </button>
+    </footer>
   `;
 
-  const backdrop = document.createElement("div");
-  backdrop.className = "cart-backdrop";
+  document.body.append(cartDock, backdrop, cartSheet);
 
-  const cartSheet = document.createElement("section");
-  cartSheet.className = "cart-sheet";
-  cartSheet.setAttribute("dir", "rtl");
-  cartSheet.setAttribute("aria-hidden", "true");
-  cartSheet.innerHTML = `
-    <div class="cart-sheet-handle" aria-hidden="true"></div>
+  const dockBadge = cartDock.querySelector(".lux-cart-badge");
+  const dockPreviewName = cartDock.querySelector(".lux-cart-preview-name");
+  const dockPreviewImage = cartDock.querySelector(".lux-cart-preview-image");
+  const dockTotal = cartDock.querySelector(".lux-cart-total");
+  const sheetCount = cartSheet.querySelector(".lux-cart-sheet-count");
+  const cartList = cartSheet.querySelector(".lux-cart-list");
+  const emptyState = cartSheet.querySelector(".lux-cart-empty");
+  const cartFooter = cartSheet.querySelector(".lux-cart-footer");
+  const sheetTotal = cartSheet.querySelector(".lux-cart-sheet-total");
+  const closeButton = cartSheet.querySelector(".lux-cart-close");
+  const checkoutButton = cartSheet.querySelector(".lux-cart-checkout");
 
-    <div class="cart-sheet-header">
-      <div>
-        <h2>سلة المشتريات</h2>
-        <p class="cart-sheet-subtitle">0 قطعة</p>
-      </div>
+  let previousTotalQuantity = 0;
+  let lastProductId = null;
 
-      <button type="button" class="cart-sheet-close" aria-label="إغلاق السلة">×</button>
-    </div>
-
-    <div class="cart-sheet-items"></div>
-
-    <div class="cart-sheet-empty">
-      لم تضف أي منتج إلى السلة
-    </div>
-
-    <div class="cart-sheet-footer">
-      <div class="cart-sheet-total-row">
-        <span>الإجمالي</span>
-        <strong class="cart-sheet-total">0 AED</strong>
-      </div>
-
-      <button type="button" class="cart-checkout-button">
-        إتمام الطلب
-      </button>
-    </div>
-  `;
-
-  document.body.append(summaryBar, backdrop, cartSheet);
-
-  const summaryCount = summaryBar.querySelector(".cart-summary-count");
-  const summaryTotal = summaryBar.querySelector(".cart-summary-total");
-  const summaryActiveCount = summaryBar.querySelector(
-    ".cart-summary-active-count"
-  );
-  const summaryPlus = summaryBar.querySelector(".cart-summary-plus");
-  const summaryMinus = summaryBar.querySelector(".cart-summary-minus");
-  const summaryOpen = summaryBar.querySelector(".cart-summary-open");
-  const summaryLabelButton = summaryBar.querySelector(
-    ".cart-summary-label-button"
-  );
-  const sheetSubtitle = cartSheet.querySelector(".cart-sheet-subtitle");
-  const sheetItems = cartSheet.querySelector(".cart-sheet-items");
-  const sheetEmpty = cartSheet.querySelector(".cart-sheet-empty");
-  const sheetFooter = cartSheet.querySelector(".cart-sheet-footer");
-  const sheetTotal = cartSheet.querySelector(".cart-sheet-total");
-  const closeButton = cartSheet.querySelector(".cart-sheet-close");
-  const checkoutButton = cartSheet.querySelector(".cart-checkout-button");
-
-  const totals = () => {
+  const getTotals = () => {
     let quantity = 0;
     let price = 0;
 
@@ -139,50 +164,46 @@ document.addEventListener("DOMContentLoaded", () => {
     cartSheet.classList.remove("is-open");
     backdrop.classList.remove("is-open");
     cartSheet.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("cart-sheet-open");
+    document.body.classList.remove("lux-cart-open");
   };
 
   const openCart = () => {
-    if (!mobileScreen.matches || cart.size === 0) return;
+    if (cart.size === 0) return;
 
     cartSheet.classList.add("is-open");
     backdrop.classList.add("is-open");
     cartSheet.setAttribute("aria-hidden", "false");
-    document.body.classList.add("cart-sheet-open");
+    document.body.classList.add("lux-cart-open");
   };
 
   const renderCartItems = () => {
-    const items = [...cart.values()];
-
-    sheetItems.innerHTML = items
+    cartList.innerHTML = [...cart.values()]
       .map(
         (item) => `
-          <article class="cart-sheet-item" data-cart-id="${item.id}">
-            <img
-              class="cart-sheet-item-image"
-              src="${escapeHtml(item.image)}"
-              alt="${escapeHtml(item.name)}"
-            >
-
-            <div class="cart-sheet-item-info">
-              <span class="cart-sheet-item-brand">${escapeHtml(item.brand)}</span>
-              <h3>${escapeHtml(item.name)}</h3>
-              <strong>${money(item.price)}</strong>
+          <article class="lux-cart-item" data-product-id="${item.id}">
+            <div class="lux-cart-item-image-wrap">
+              <img
+                class="lux-cart-item-image"
+                src="${escapeHtml(item.image)}"
+                alt="${escapeHtml(item.name)}"
+              >
             </div>
 
-            <div class="cart-sheet-item-actions">
-              <div class="cart-sheet-quantity">
-                <button type="button" data-cart-action="plus" aria-label="زيادة الكمية">+</button>
+            <div class="lux-cart-item-info">
+              <span class="lux-cart-item-brand">${escapeHtml(item.brand)}</span>
+              <h3>${escapeHtml(item.name)}</h3>
+              <strong>${formatMoney(item.price)}</strong>
+            </div>
+
+            <div class="lux-cart-item-actions">
+              <div class="lux-cart-stepper">
+                <button type="button" data-action="minus" aria-label="${AR.decrease}">&minus;</button>
                 <span>${item.quantity}</span>
-                <button type="button" data-cart-action="minus" aria-label="تقليل الكمية">−</button>
+                <button type="button" data-action="plus" aria-label="${AR.increase}">+</button>
               </div>
 
-              <button
-                type="button"
-                class="cart-sheet-remove"
-                data-cart-action="remove"
-              >
-                حذف
+              <button type="button" class="lux-cart-remove" data-action="remove">
+                ${AR.remove}
               </button>
             </div>
           </article>
@@ -191,23 +212,45 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   };
 
+  const pulseBadge = () => {
+    dockBadge.classList.remove("is-bumping");
+    requestAnimationFrame(() => dockBadge.classList.add("is-bumping"));
+  };
+
   const updateCart = () => {
-    const { quantity, price } = totals();
-    const activeProduct = products.get(activeProductId);
+    const { quantity, price } = getTotals();
 
-    summaryCount.textContent = quantity;
-    summaryTotal.textContent = money(price);
-    summaryActiveCount.textContent = activeProduct?.quantity || 0;
-    summaryPlus.disabled = !activeProduct;
-    summaryMinus.disabled = !activeProduct;
-    sheetSubtitle.textContent = `${quantity} ${quantity === 1 ? "قطعة" : "قطع"}`;
-    sheetTotal.textContent = money(price);
+    if (!cart.has(lastProductId)) {
+      const remainingIds = [...cart.keys()];
+      lastProductId =
+        remainingIds.length > 0
+          ? remainingIds[remainingIds.length - 1]
+          : null;
+    }
 
-    summaryBar.classList.toggle("is-visible", quantity > 0);
-    sheetEmpty.hidden = quantity > 0;
-    sheetFooter.hidden = quantity === 0;
+    const lastProduct = products.get(lastProductId);
+
+    dockBadge.textContent = quantity;
+    dockPreviewName.textContent = lastProduct?.name || AR.product;
+    dockPreviewImage.src = lastProduct?.image || "";
+    dockPreviewImage.alt = lastProduct?.name || AR.product;
+    dockTotal.textContent = formatMoney(price);
+    sheetCount.textContent =
+      quantity === 1 ? AR.oneProduct : `${quantity} ${AR.products}`;
+    sheetTotal.textContent = formatMoney(price);
+
+    cartDock.classList.toggle("is-visible", quantity > 0);
+    document.body.classList.toggle("lux-cart-has-items", quantity > 0);
+    emptyState.hidden = quantity > 0;
+    cartFooter.hidden = quantity === 0;
 
     renderCartItems();
+
+    if (quantity !== previousTotalQuantity && quantity > 0) {
+      pulseBadge();
+    }
+
+    previousTotalQuantity = quantity;
 
     if (quantity === 0) closeCart();
   };
@@ -216,27 +259,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const product = products.get(id);
     if (!product) return;
 
-    const quantity = Math.max(0, newQuantity);
-    product.quantity = quantity;
-    activeProductId = id;
+    product.quantity = Math.max(0, newQuantity);
 
-    if (quantity === 0) {
+    if (product.quantity === 0) {
       cart.delete(id);
-
-      if (activeProductId === id) {
-        const remainingIds = [...cart.keys()];
-        activeProductId =
-          remainingIds.length > 0
-            ? remainingIds[remainingIds.length - 1]
-            : null;
-      }
     } else {
       cart.set(id, product);
+      lastProductId = id;
     }
 
-    product.number.textContent = quantity;
-    product.addButton.classList.toggle("is-in-cart", quantity > 0);
-    product.controls.classList.toggle("is-visible", quantity > 0);
+    product.number.textContent = product.quantity;
+    product.addButton.classList.toggle("lux-added", product.quantity > 0);
+    product.controls.classList.toggle("is-visible", product.quantity > 0);
 
     updateCart();
   };
@@ -246,17 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!addButton) return;
 
     const id = String(index);
-    const name = card.querySelector("h3")?.textContent.trim() || "منتج";
-    const brand =
-      card.querySelector(".product-brand")?.textContent.trim() || "";
-    const image = card.querySelector(".product-image img")?.getAttribute("src") || "";
-
     const controls = document.createElement("div");
-    controls.className = "cart-card-controls";
+    controls.className = "lux-card-qty";
     controls.innerHTML = `
-      <button type="button" class="cart-card-plus" aria-label="زيادة الكمية">+</button>
-      <span class="cart-card-number">0</span>
-      <button type="button" class="cart-card-minus" aria-label="تقليل الكمية">−</button>
+      <button type="button" class="lux-card-minus" aria-label="${AR.decrease}">&minus;</button>
+      <span class="lux-card-number">0</span>
+      <button type="button" class="lux-card-plus" aria-label="${AR.increase}">+</button>
     `;
 
     addButton.insertAdjacentElement("afterend", controls);
@@ -264,99 +293,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const product = {
       id,
       card,
-      name,
-      brand,
-      image,
+      name: card.querySelector("h3")?.textContent.trim() || AR.product,
+      brand: card.querySelector(".product-brand")?.textContent.trim() || "",
+      image:
+        card.querySelector(".product-image img")?.getAttribute("src") || "",
       price: readPrice(card),
       quantity: 0,
       addButton,
       controls,
-      number: controls.querySelector(".cart-card-number"),
+      number: controls.querySelector(".lux-card-number"),
     };
 
     products.set(id, product);
 
     addButton.addEventListener("click", (event) => {
-      if (!mobileScreen.matches) return;
-
       event.preventDefault();
       setQuantity(id, product.quantity + 1);
     });
 
     controls
-      .querySelector(".cart-card-plus")
-      .addEventListener("click", () => {
-        setQuantity(id, product.quantity + 1);
-      });
-
-    controls
-      .querySelector(".cart-card-minus")
+      .querySelector(".lux-card-minus")
       .addEventListener("click", () => {
         setQuantity(id, product.quantity - 1);
       });
+
+    controls
+      .querySelector(".lux-card-plus")
+      .addEventListener("click", () => {
+        setQuantity(id, product.quantity + 1);
+      });
   });
 
-  sheetItems.addEventListener("click", (event) => {
-    const actionButton = event.target.closest("[data-cart-action]");
+  cartList.addEventListener("click", (event) => {
+    const actionButton = event.target.closest("[data-action]");
     if (!actionButton) return;
 
-    const itemElement = actionButton.closest(".cart-sheet-item");
-    const id = itemElement?.dataset.cartId;
+    const itemElement = actionButton.closest(".lux-cart-item");
+    const id = itemElement?.dataset.productId;
     const product = products.get(id);
     if (!product) return;
 
-    const action = actionButton.dataset.cartAction;
+    const action = actionButton.dataset.action;
 
-    if (action === "plus") {
-      setQuantity(id, product.quantity + 1);
-    }
-
-    if (action === "minus") {
-      setQuantity(id, product.quantity - 1);
-    }
-
-    if (action === "remove") {
-      setQuantity(id, 0);
-    }
+    if (action === "plus") setQuantity(id, product.quantity + 1);
+    if (action === "minus") setQuantity(id, product.quantity - 1);
+    if (action === "remove") setQuantity(id, 0);
   });
 
-  summaryOpen.addEventListener("click", openCart);
-  summaryLabelButton.addEventListener("click", openCart);
-
-  summaryPlus.addEventListener("click", () => {
-    const activeProduct = products.get(activeProductId);
-    if (!activeProduct) return;
-
-    setQuantity(activeProductId, activeProduct.quantity + 1);
-  });
-
-  summaryMinus.addEventListener("click", () => {
-    const activeProduct = products.get(activeProductId);
-    if (!activeProduct) return;
-
-    setQuantity(activeProductId, activeProduct.quantity - 1);
-  });
-
-  closeButton.addEventListener("click", closeCart);
+  cartDock.addEventListener("click", openCart);
   backdrop.addEventListener("click", closeCart);
+  closeButton.addEventListener("click", closeCart);
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeCart();
   });
 
   checkoutButton.addEventListener("click", () => {
-    const { quantity, price } = totals();
+    const { quantity, price } = getTotals();
 
-    alert(
-      `عدد القطع: ${quantity}\nالإجمالي: ${money(price)}`
-    );
+    alert(`${AR.pieces}: ${quantity}\n${AR.total}: ${formatMoney(price)}`);
   });
-
-  if (typeof mobileScreen.addEventListener === "function") {
-    mobileScreen.addEventListener("change", (event) => {
-      if (!event.matches) closeCart();
-    });
-  }
 
   updateCart();
 });
