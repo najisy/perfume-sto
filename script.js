@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setImportant(controlButton, "max-height", "none");
       setImportant(controlButton, "margin", "0");
       setImportant(controlButton, "padding", "0");
-      setImportant(controlButton, "transform", "translateY(-1px)");
+      setImportant(controlButton, "transform", "translateY(-0px)");
     });
   };
 
