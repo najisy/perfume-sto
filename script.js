@@ -255,6 +255,77 @@ document.addEventListener("DOMContentLoaded", () => {
     if (quantity === 0) closeCart();
   };
 
+  const setImportant = (element, property, value) => {
+    element.style.setProperty(property, value, "important");
+  };
+
+  /* Place the quantity control exactly over the original Add to Cart button. */
+  const placeCardControls = (product) => {
+    const { addButton, controls } = product;
+    const actionParent = addButton.parentElement;
+    if (!actionParent) return;
+
+    setImportant(actionParent, "position", "relative");
+
+    const buttonWidth = addButton.offsetWidth;
+    const buttonHeight = addButton.offsetHeight;
+
+    if (buttonWidth === 0 || buttonHeight === 0) return;
+
+    setImportant(controls, "position", "absolute");
+    setImportant(controls, "top", `${addButton.offsetTop}px`);
+    setImportant(controls, "right", "auto");
+    setImportant(controls, "bottom", "auto");
+    setImportant(controls, "left", `${addButton.offsetLeft}px`);
+    setImportant(controls, "width", `${buttonWidth}px`);
+    setImportant(controls, "min-width", `${buttonWidth}px`);
+    setImportant(controls, "max-width", `${buttonWidth}px`);
+    setImportant(controls, "height", `${buttonHeight}px`);
+    setImportant(controls, "min-height", `${buttonHeight}px`);
+    setImportant(controls, "max-height", `${buttonHeight}px`);
+    setImportant(controls, "margin", "0");
+    setImportant(controls, "padding", "0");
+    setImportant(controls, "box-sizing", "border-box");
+    setImportant(controls, "overflow", "hidden");
+    setImportant(controls, "transform", "none");
+    setImportant(controls, "z-index", "3");
+
+    controls.querySelectorAll("button").forEach((controlButton) => {
+      setImportant(controlButton, "width", `${buttonHeight}px`);
+      setImportant(controlButton, "min-width", `${buttonHeight}px`);
+      setImportant(controlButton, "max-width", `${buttonHeight}px`);
+      setImportant(controlButton, "height", "100%");
+      setImportant(controlButton, "min-height", "0");
+      setImportant(controlButton, "max-height", "none");
+      setImportant(controlButton, "margin", "0");
+      setImportant(controlButton, "padding", "0");
+      setImportant(controlButton, "transform", "translateY(-2px)");
+    });
+  };
+
+  const displayCardControls = (product, isVisible) => {
+    const { addButton, controls } = product;
+
+    if (isVisible) {
+      setImportant(addButton, "display", product.originalDisplay);
+      setImportant(addButton, "visibility", "hidden");
+      setImportant(addButton, "opacity", "0");
+      setImportant(addButton, "pointer-events", "none");
+
+      setImportant(controls, "display", "flex");
+      setImportant(controls, "flex-direction", "row");
+      setImportant(controls, "align-items", "center");
+      setImportant(controls, "justify-content", "center");
+setImportant(controls, "gap", "14px");
+      return;
+    }
+
+    ["display", "visibility", "opacity", "pointer-events"].forEach(
+      (property) => addButton.style.removeProperty(property)
+    );
+    setImportant(controls, "display", "none");
+  };
+
   const setQuantity = (id, newQuantity) => {
     const product = products.get(id);
     if (!product) return;
@@ -268,9 +339,14 @@ document.addEventListener("DOMContentLoaded", () => {
       lastProductId = id;
     }
 
+    const hasQuantity = product.quantity > 0;
+
+    if (hasQuantity) placeCardControls(product);
+
     product.number.textContent = product.quantity;
-    product.addButton.classList.toggle("lux-added", product.quantity > 0);
-    product.controls.classList.toggle("is-visible", product.quantity > 0);
+    product.addButton.classList.toggle("lux-added", hasQuantity);
+    product.controls.classList.toggle("is-visible", hasQuantity);
+    displayCardControls(product, hasQuantity);
 
     updateCart();
   };
@@ -300,6 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
       price: readPrice(card),
       quantity: 0,
       addButton,
+      originalDisplay: getComputedStyle(addButton).display || "flex",
       controls,
       number: controls.querySelector(".lux-card-number"),
     };
@@ -322,6 +399,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .addEventListener("click", () => {
         setQuantity(id, product.quantity + 1);
       });
+  });
+
+  window.addEventListener("resize", () => {
+    requestAnimationFrame(() => {
+      products.forEach((product) => {
+        if (product.quantity > 0) placeCardControls(product);
+      });
+    });
   });
 
   cartList.addEventListener("click", (event) => {

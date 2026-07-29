@@ -1939,3 +1939,55 @@ body .lux-cart-checkout {
     height: 64px;
   }
 }
+/* تثبيت حجم البطاقة عند ظهور العداد */
+.product-card .product-info {
+  position: relative !important;
+}
+
+.product-card .cart-btn.lux-added {
+  display: flex !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.product-card .lux-card-qty {
+  position: absolute !important;
+  top: auto !important;
+  right: 4px !important;
+  bottom: 5px !important;
+  left: 4px !important;
+
+  width: auto !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+.product-card .lux-card-qty:not(.is-visible) {
+  display: none !important;
+}
+
+.product-card .lux-card-qty.is-visible {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.product-card .lux-card-qty button {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  transform: none !important;
+}
