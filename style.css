@@ -675,7 +675,7 @@ margin-top: -25px;
       rgba(255, 255, 255, 0.42),
       rgba(255, 255, 255, 0.42)
     ),
-    url("images/hero-bg.png");
+    url("images/hero-mobile.png");
 
   background-size: cover, contain;
   background-position: center, center top;
