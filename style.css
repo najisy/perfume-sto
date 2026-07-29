@@ -673,20 +673,31 @@ margin-top: -25px;
   justify-content: flex-start;
   padding: 100px 20px 35px;
   border-bottom: none;
-
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.42),
-      rgba(255, 255, 255, 0.42)
-    ),
-    url("images/hero-mobile.png");
-
-  background-size: cover, contain;
-  background-position: center, center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-color: #f8f4ed;
 }
+}
+@media (max-width: 600px) and (hover: none) and (pointer: coarse) {
+  .hero {
+    background-image:
+      linear-gradient(
+        rgba(255, 255, 255, 0.42),
+        rgba(255, 255, 255, 0.42)
+      ),
+      url("images/hero-mobile.png");
+
+    background-size: cover, contain;
+    background-position: center, center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-color: #f8f4ed;
+  }
+}
+@media (max-width: 768px) and (hover: hover) and (pointer: fine) {
+  .hero {
+    background-size: cover, contain;
+    background-position: center, center;
+    background-repeat: no-repeat;
+    background-color: #f8f4ed;
+  }
 }
 .cart-summary-bar,
 .cart-backdrop,
