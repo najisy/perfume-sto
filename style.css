@@ -669,6 +669,20 @@ margin-top: -25px;
         margin-left: 4px;
         font-size: 12px;
     }
+    .hero {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.42),
+      rgba(255, 255, 255, 0.42)
+    ),
+    url("images/hero-bg.png");
+
+  background-size: cover, contain;
+  background-position: center, center top;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-color: #f8f4ed;
+}
 }
 .cart-summary-bar,
 .cart-backdrop,
@@ -1200,20 +1214,6 @@ margin-top: -25px;
     font-size: 18px;
     font-weight: 800;
   }
-  .hero {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.42),
-      rgba(255, 255, 255, 0.42)
-    ),
-    url("images/hero-bg.png");
-
-  background-size: cover, contain;
-  background-position: center, center top;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-color: #f8f4ed;
-}
 }
 /* ========================================
    LUXURY MINI CART - V5
