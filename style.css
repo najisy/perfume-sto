@@ -917,7 +917,7 @@ margin-top: -25px;
 @media (max-width: 768px) and (hover: hover) and (pointer: fine) {
   .hero {
     background-size: cover, 100% auto;
-background-position: center, center -0px;
+background-position: center, center -2px;
     background-repeat: no-repeat;
     background-color: #f8f4ed;
   }
