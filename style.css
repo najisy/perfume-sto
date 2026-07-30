@@ -218,7 +218,7 @@ body{
   }
 
   .navbar .logo {
-  font-size: 70px;
+  font-size: 30px;
   transform: scaleX(1.10);
 }
 
@@ -245,7 +245,7 @@ body{
 
   .navbar .logo {
     gap: 0;
-    font-size: 70px;
+    font-size: 30px;
   }
 
   .navbar .logo::before,
