@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>لمسة عطر</title>
+    <title>رونق للعطور</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -15,22 +15,66 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Reem+Kufi:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-<header class="navbar">
-    <div class="logo">لمسة عطر</div>
+<svg aria-hidden="true" width="0" height="0"
+     style="position: absolute; overflow: hidden;">
+style="position: absolute; overflow: hidden;">
 
-    <nav>
-        <a href="#">الرئيسية</a>
-        <a href="#">العطور</a>
-        <a href="#">العروض</a>
-        <a href="#">تواصل معنا</a>
-    </nav>
+  <symbol id="mesh-cart-symbol"
+          viewBox="0 0 64 64"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+    <path d="M7 11h6l3 8"></path>
+    <path d="M16 19h37l-5 22H21z"></path>
+
+    <path d="
+      M25 20l-1 20
+      M34 20v20
+      M43 20l1 20
+      M19 27h32
+      M20 34h29
+    "></path>
+
+    <path d="M21 46h25"></path>
+    <circle cx="25" cy="52" r="3.5"></circle>
+    <circle cx="44" cy="52" r="3.5"></circle>
+
+  </symbol>
+</svg>
+<header class="navbar" id="home">
+
+  <nav class="nav-group nav-left">
+    <a href="#offers">العروض</a>
+    <a href="#contact">تواصل معنا</a>
+  </nav>
+
+  <a class="logo" href="#home">رونق للعطور</a>
+
+  <nav class="nav-group nav-right">
+    <a href="#home">الرئيسية</a>
+
+    <details class="brands-dropdown">
+      <summary>الماركات</summary>
+
+      <div class="brands-menu">
+        <a href="#products">Chanel</a>
+        <a href="#products">Creed</a>
+        <a href="#products">Versace</a>
+        <a href="#products">Valentino</a>
+        <a href="#products">Prada</a>
+        <a href="#products">YSL</a>
+      </div>
+    </details>
+  </nav>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500&display=swap" rel="stylesheet">
 </header>
 
 <section class="hero">
@@ -64,7 +108,7 @@
         <span class="price">1,650 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -84,7 +128,7 @@
         <span class="price">1,480 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -104,7 +148,7 @@
         <span class="price">980 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -124,7 +168,7 @@
         <span class="price">720 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -143,7 +187,7 @@
         <span class="price">700 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -166,7 +210,7 @@
         <span class="price">670 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -186,7 +230,7 @@
         <span class="price">620 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -206,7 +250,7 @@
         <span class="price">610 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -226,7 +270,7 @@
         <span class="price">540 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -245,7 +289,7 @@
         <span class="price">500 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -268,7 +312,7 @@
         <span class="price">530 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -287,7 +331,7 @@
         <span class="price">520 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -306,7 +350,7 @@
         <span class="price">520 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -326,7 +370,7 @@
         <span class="price">470 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -345,7 +389,7 @@
         <span class="price">450 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -368,7 +412,7 @@
         <span class="price">420 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -387,7 +431,7 @@
         <span class="price">400 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -407,7 +451,7 @@
         <span class="price">300 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -426,7 +470,7 @@
         <span class="price">250 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
@@ -445,7 +489,7 @@
         <span class="price">240 AED</span>
 
         <button class="cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <svg class="mesh-cart-icon" aria-hidden="true"><use href="#mesh-cart-symbol"></use></svg>
             Add to Cart
         </button>
     </div>
