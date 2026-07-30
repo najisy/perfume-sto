@@ -218,8 +218,8 @@ body{
   }
 
   .navbar .logo {
-  font-size: 50px;
-  transform: scaleX(1.04);
+  font-size: 60px;
+  transform: scaleX(1.10);
 }
 
   .navbar .nav-group {
