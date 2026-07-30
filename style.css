@@ -362,27 +362,58 @@ body{
 
 @media (max-width: 768px){
 
-    .navbar{
-        padding: 0 20px;
-        align-items: center;
-    }
+  .navbar{
+    height: 94px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
 
-    .navbar nav{
-        gap: 12px;
-        align-items: center;
-    }
+.navbar nav{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
 
-    .navbar nav a{
-        font-size: 14px;
-        line-height: 1;
-        white-space: nowrap;
-    }
+/* الروابط الأربعة في الصف الثاني */
+.navbar nav > a,
+.navbar nav > .brands-dropdown{
+    flex: 0 0 25%;
+    height: 32px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
 
-    .navbar .logo{
-        font-size: 30px;
-        line-height: 1;
-        white-space: nowrap;
-    }
+.navbar nav a{
+    font-size: 13px;
+    line-height: 1;
+}
+
+/* الاسم في الصف الأول */
+.navbar .logo{
+    order: -1;
+    flex: 0 0 100%;
+    height: 42px;
+    position: static;
+    transform: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    line-height: 1;
+    white-space: nowrap;
+}
 
     /* ترتيب محتوى الخلفية */
     .hero h1,
