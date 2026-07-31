@@ -2517,8 +2517,8 @@ body.perfume-modal-open{
   grid-template-columns: 1fr;
   gap: 16px;
   width: 100%;
-  height: 65dvh;
-  max-height: 65dvh;
+  height: 70dvh;
+  max-height: 70dvh;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
