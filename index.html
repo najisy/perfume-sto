@@ -136,7 +136,23 @@ style="position: absolute; overflow: hidden;">
 </div>
 
 
-<div class="product-card featured-card">
+<div class="product-card featured-card"
+     data-images="images/sy1.jpg,images/sy1-2.jpg,images/sy1-3.jpg,images/sy1-4.jpg"
+
+     data-product-name="Percival"
+     data-brand="Parfums de Marly"
+     data-audience="رجالي"
+     data-concentration="Eau de Parfum"
+     data-sizes="75 مل، 125 مل، 200 مل"
+     data-origin="صُنع في فرنسا"
+
+     data-top-notes="البرغموت، الماندرين، الفلفل الوردي"
+     data-heart-notes="اللافندر، السوسن، الهيل"
+     data-base-notes="بلسم التنوب، حبوب التونكا، الأمبروكس، المسك الأبيض"
+
+     data-ingredients="Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citronellol, Coumarin, Coumarin, Citral, BHT, Geraniol, Isoeugenol, Cinnamal, Eugenol"
+
+     data-warning="للاستخدام الخارجي فقط">
 
     <div class="product-image">
         <img src="images/sy1.jpg" alt="Perfume">
@@ -498,7 +514,57 @@ style="position: absolute; overflow: hidden;">
 </div>
 </section>
 </div>
+<div class="perfume-details-modal"
+     id="perfumeDetailsModal"
+     aria-hidden="true"
+     hidden>
 
+    <div class="perfume-details-dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="detailName">
+
+        <button type="button"
+                class="perfume-details-close"
+                id="detailsClose"
+                aria-label="إغلاق">
+            &times;
+        </button>
+
+        <div class="perfume-details-gallery">
+            <img id="detailMainImage" src="" alt="">
+
+            <div class="perfume-details-thumbnails"
+                 id="detailThumbnails">
+            </div>
+        </div>
+
+        <div class="perfume-details-content">
+            <span id="detailBrand"></span>
+            <h2 id="detailName"></h2>
+            <p id="detailPrice"></p>
+
+            <p><strong>الفئة:</strong> <span id="detailAudience"></span></p>
+            <p><strong>التركيز:</strong> <span id="detailConcentration"></span></p>
+            <p><strong>الأحجام:</strong> <span id="detailSizes"></span></p>
+            <p><strong>بلد الصنع:</strong> <span id="detailOrigin"></span></p>
+
+            <h3>التركيبة العطرية</h3>
+
+            <p><strong>المقدمة:</strong> <span id="detailTopNotes"></span></p>
+            <p><strong>القلب:</strong> <span id="detailHeartNotes"></span></p>
+            <p><strong>القاعدة:</strong> <span id="detailBaseNotes"></span></p>
+
+            <h3>المكونات</h3>
+            <p id="detailIngredients"></p>
+
+            <p class="perfume-details-warning"
+               id="detailWarning">
+            </p>
+        </div>
+
+    </div>
+</div>
 <script src="script.js"></script>
 
 </body>

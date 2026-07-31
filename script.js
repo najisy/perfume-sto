@@ -504,3 +504,162 @@ if (document.readyState === "loading") {
 } else {
     initFavorites();
 }
+/* نافذة صور وتفاصيل العطر */
+function initPerfumeDetails() {
+    const modal = document.getElementById("perfumeDetailsModal");
+    const closeButton = document.getElementById("detailsClose");
+    const mainImage = document.getElementById("detailMainImage");
+    const thumbnails = document.getElementById("detailThumbnails");
+
+    if (!modal || !closeButton || !mainImage || !thumbnails) return;
+
+    let lastClickedImage = null;
+
+    function fillDetail(id, value) {
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = value || "—";
+        }
+    }
+
+    function openPerfumeDetails(card, imageBox) {
+        const productName =
+            card.dataset.productName ||
+            card.querySelector("h3")?.textContent.trim() ||
+            "تفاصيل العطر";
+
+        const productBrand =
+            card.dataset.brand ||
+            card.querySelector(".product-brand")?.textContent.trim() ||
+            "";
+
+        const productPrice =
+            card.querySelector(".price")?.textContent.trim() ||
+            "";
+
+        const productImages = (card.dataset.images || "")
+            .split(",")
+            .map(image => image.trim())
+            .filter(Boolean);
+
+        fillDetail("detailBrand", productBrand);
+        fillDetail("detailName", productName);
+        fillDetail("detailPrice", productPrice);
+        fillDetail("detailAudience", card.dataset.audience);
+        fillDetail("detailConcentration", card.dataset.concentration);
+        fillDetail("detailSizes", card.dataset.sizes);
+        fillDetail("detailOrigin", card.dataset.origin);
+        fillDetail("detailTopNotes", card.dataset.topNotes);
+        fillDetail("detailHeartNotes", card.dataset.heartNotes);
+        fillDetail("detailBaseNotes", card.dataset.baseNotes);
+        fillDetail("detailIngredients", card.dataset.ingredients);
+        fillDetail("detailWarning", card.dataset.warning);
+
+        thumbnails.innerHTML = "";
+
+        productImages.forEach((imageSource, index) => {
+            const thumbnailButton = document.createElement("button");
+            thumbnailButton.type = "button";
+            thumbnailButton.className = "perfume-detail-thumb";
+
+            if (index === 0) {
+                thumbnailButton.classList.add("active");
+            }
+
+            const thumbnailImage = document.createElement("img");
+            thumbnailImage.src = imageSource;
+            thumbnailImage.alt = `${productName} - صورة ${index + 1}`;
+
+            thumbnailButton.appendChild(thumbnailImage);
+
+            thumbnailButton.addEventListener("click", () => {
+                mainImage.src = imageSource;
+                mainImage.alt = thumbnailImage.alt;
+
+                thumbnails
+                    .querySelectorAll(".perfume-detail-thumb")
+                    .forEach(button => button.classList.remove("active"));
+
+                thumbnailButton.classList.add("active");
+            });
+
+            thumbnails.appendChild(thumbnailButton);
+        });
+
+        if (productImages.length > 0) {
+            mainImage.src = productImages[0];
+            mainImage.alt = productName;
+        }
+
+        lastClickedImage = imageBox;
+
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("perfume-modal-open");
+
+        closeButton.focus();
+    }
+
+    function closePerfumeDetails() {
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("perfume-modal-open");
+
+        if (lastClickedImage) {
+            lastClickedImage.focus();
+        }
+    }
+
+    document
+        .querySelectorAll(".product-card[data-images]")
+        .forEach(card => {
+            const imageBox = card.querySelector(".product-image");
+
+            if (!imageBox) return;
+
+            const productName =
+                card.dataset.productName ||
+                card.querySelector("h3")?.textContent.trim() ||
+                "العطر";
+
+            imageBox.style.cursor = "pointer";
+            imageBox.setAttribute("role", "button");
+            imageBox.setAttribute("tabindex", "0");
+            imageBox.setAttribute(
+                "aria-label",
+                `عرض صور وتفاصيل ${productName}`
+            );
+
+            imageBox.addEventListener("click", () => {
+                openPerfumeDetails(card, imageBox);
+            });
+
+            imageBox.addEventListener("keydown", event => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openPerfumeDetails(card, imageBox);
+                }
+            });
+        });
+
+    closeButton.addEventListener("click", closePerfumeDetails);
+
+    modal.addEventListener("click", event => {
+        if (event.target === modal) {
+            closePerfumeDetails();
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !modal.hidden) {
+            closePerfumeDetails();
+        }
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPerfumeDetails);
+} else {
+    initPerfumeDetails();
+}
