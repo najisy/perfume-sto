@@ -441,3 +441,66 @@ setImportant(controls, "gap", "14px");
 
   updateCart();
 });
+function initFavorites() {
+    const savedFavorites = new Set(
+        JSON.parse(localStorage.getItem("favoritePerfumes") || "[]")
+    );
+
+    document.querySelectorAll(".product-card").forEach((card, index) => {
+        if (card.querySelector(".favorite-btn")) return;
+
+        const brand =
+            card.querySelector(".product-brand")?.textContent.trim() || "";
+
+        const name =
+            card.querySelector("h3")?.textContent.trim() || `perfume-${index}`;
+
+        const productId = `${brand}-${name}`;
+
+        const favoriteButton = document.createElement("button");
+        favoriteButton.type = "button";
+        favoriteButton.className = "favorite-btn";
+        favoriteButton.setAttribute("aria-label", "إضافة إلى المفضلة");
+
+        const isSaved = savedFavorites.has(productId);
+
+        favoriteButton.classList.toggle("active", isSaved);
+        favoriteButton.setAttribute("aria-pressed", String(isSaved));
+
+        favoriteButton.innerHTML = `
+            <i class="${isSaved ? "fa-solid" : "fa-regular"} fa-heart"></i>
+        `;
+
+        favoriteButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const active = favoriteButton.classList.toggle("active");
+            const icon = favoriteButton.querySelector("i");
+
+            icon.classList.toggle("fa-solid", active);
+            icon.classList.toggle("fa-regular", !active);
+
+            favoriteButton.setAttribute("aria-pressed", String(active));
+
+            if (active) {
+                savedFavorites.add(productId);
+            } else {
+                savedFavorites.delete(productId);
+            }
+
+            localStorage.setItem(
+                "favoritePerfumes",
+                JSON.stringify([...savedFavorites])
+            );
+        });
+
+        card.prepend(favoriteButton);
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFavorites);
+} else {
+    initFavorites();
+}

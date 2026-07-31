@@ -355,7 +355,7 @@ body{
 }
 
 .section-text{
-    color:#777;
+    color:#111;
     font-size:18px;
     margin-bottom:45px;
 }
@@ -460,7 +460,7 @@ body{
 .product-card{
     background:#ffffff;
     border-radius:22px;
-
+position: relative;
     overflow:hidden;
 
     border:1px solid #f1f1f1;
@@ -470,6 +470,49 @@ body{
     transition:.35s ease;
 
     padding:0;
+}
+
+.product-card .favorite-btn{
+    position: absolute !important;
+    top: 3px;
+    left: 3px;
+
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255, 255, 255, 0.94) !important;
+    color: #444 !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+    z-index: 20;
+    cursor: pointer;
+    box-shadow: none !important;
+}
+
+.product-card .favorite-btn i{
+    margin: 0 !important;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.product-card .favorite-btn.active{
+    background: #fff !important;
+    color: #c83245 !important;
+}
+
+.product-card .favorite-btn:active{
+    transform: scale(0.9);
 }
 
 .product-card:hover{
