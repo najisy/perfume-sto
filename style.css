@@ -2517,11 +2517,17 @@ body.perfume-modal-open{
   grid-template-columns: 1fr;
   gap: 16px;
   width: 100%;
-  height: 50dvh;
-  max-height: 50dvh;
+  height: 65dvh;
+  max-height: 65dvh;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding: 16px;
   border-radius: 17px;
+}
+
+.perfume-details-dialog::-webkit-scrollbar {
+  display: none;
 }
 
     #detailMainImage{

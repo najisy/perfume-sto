@@ -663,3 +663,22 @@ if (document.readyState === "loading") {
 } else {
     initPerfumeDetails();
 }
+document.addEventListener("click", (event) => {
+  const cartItem = event.target.closest(".cart-sheet-item");
+
+  if (!cartItem) return;
+
+  if (event.target.closest("[data-cart-action]")) return;
+
+  const productIndex = Number(cartItem.dataset.cartId);
+  const productCards = document.querySelectorAll(".product-card");
+  const productCard = productCards[productIndex];
+
+  if (!productCard) return;
+
+  document.querySelector(".cart-sheet-close")?.click();
+
+  setTimeout(() => {
+    productCard.querySelector(".product-image")?.click();
+  }, 180);
+});
