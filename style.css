@@ -423,7 +423,7 @@ body{
     width: 250%;
     aspect-ratio: 900 / 358;
     transform: translate(-50%, -50%);
-    background: url("images/brown-perfume-mist-wide.png")
+    background: url("images/brown-perfume-mist-wide.png?v=3")
                 center / contain no-repeat;
     opacity: 0.68;
     z-index: -1;
