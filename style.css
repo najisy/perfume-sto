@@ -2506,7 +2506,13 @@ body.perfume-modal-open{
     color: #8a2e2e;
     font-weight: 700;
 }
-
+.perfume-details-dialog,
+.perfume-details-gallery,
+#detailMainImage,
+.perfume-detail-thumbs,
+.perfume-detail-thumb {
+    background: #ffffff !important;
+}
 /* تنسيق النافذة على الجوال */
 @media (max-width: 768px){
     .perfume-details-modal{
