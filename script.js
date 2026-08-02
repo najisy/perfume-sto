@@ -682,3 +682,30 @@ document.addEventListener("click", (event) => {
     productCard.querySelector(".product-image")?.click();
   }, 180);
 });
+document.querySelector('.btn').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const target = document.getElementById('products');
+    const start = window.pageYOffset;
+    const end = target.getBoundingClientRect().top + start;
+    const duration = 1000; // مدة النزول بالمللي ثانية (2000 = ثانيتان)
+
+    let startTime = null;
+
+    function animate(currentTime) {
+        if (!startTime) startTime = currentTime;
+
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+
+        const ease = 1 - Math.pow(1 - progress, 3); // حركة ناعمة
+
+        window.scrollTo(0, start + (end - start) * ease);
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    requestAnimationFrame(animate);
+});
