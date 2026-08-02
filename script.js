@@ -688,7 +688,7 @@ document.querySelector('.btn').addEventListener('click', function (e) {
     const target = document.getElementById('products');
     const start = window.pageYOffset;
     const end = target.getBoundingClientRect().top + start;
-    const duration = 500; // مدة النزول بالمللي ثانية (2000 = ثانيتان)
+    const duration = 700; // مدة النزول بالمللي ثانية (2000 = ثانيتان)
 
     let startTime = null;
 
