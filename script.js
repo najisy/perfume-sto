@@ -709,3 +709,32 @@ document.querySelector('.btn').addEventListener('click', function (e) {
 
     requestAnimationFrame(animate);
 });
+document.addEventListener("click", function (event) {
+  const brandsDropdown =
+    document.querySelector(".brands-dropdown");
+
+  const contactDropdown =
+    document.querySelector(".contact-dropdown");
+
+  /* إغلاق قائمة الماركات عند الضغط خارجها */
+  if (
+    brandsDropdown &&
+    !brandsDropdown.contains(event.target)
+  ) {
+    brandsDropdown.removeAttribute("open");
+
+    brandsDropdown
+      .querySelectorAll(".brand-item[open]")
+      .forEach(function (item) {
+        item.removeAttribute("open");
+      });
+  }
+
+  /* إغلاق قائمة التواصل عند الضغط خارجها */
+  if (
+    contactDropdown &&
+    !contactDropdown.contains(event.target)
+  ) {
+    contactDropdown.removeAttribute("open");
+  }
+});
