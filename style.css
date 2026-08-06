@@ -2821,3 +2821,9 @@ scrollbar-width: none;
 .email-mark {
   background: #d44638;
 }
+@media (max-width: 768px) {
+  .contact-dropdown > summary {
+    padding: 4px 6px !important;
+    font-size: 12px !important;
+  }
+}
