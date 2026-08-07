@@ -2744,25 +2744,26 @@ scrollbar-width: none;
 
 .contact-icons {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(100% + 12px);
+  right: 50%;
+  left: auto;
+  transform: translateX(50%);
   z-index: 2000;
 
-  width: 190px;
-  padding: 10px;
+  min-width: 15px;
+  padding: 2px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 6px;
-
+  gap: 4px;
   direction: rtl;
-  background: #f2f0e9;
-  border: 1px solid rgba(20, 92, 70, 0.12);
-  border-radius: 16px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.11);
+
+  background: #fffaf3;
+  border: 1px solid rgba(166, 124, 69, 0.35);
+  border-radius: 15px;
+  box-shadow: 0 12px 28px rgba(38, 49, 42, 0.14);
 }
 
 .contact-row {
@@ -2773,7 +2774,7 @@ scrollbar-width: none;
   align-items: center;
   gap: 10px;
 
-  color: #1c352b;
+  color: #3d2e23;
   border-radius: 10px;
 }
 
